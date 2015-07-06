@@ -1,0 +1,9 @@
+div#header {
+  color: white;
+  background-color: blue;
+  font-family: Arial, sans-serif;
+  font-size: 18pt;
+  padding-top: 6pt;
+  padding-left: 6pt;
+  padding-bottom: 18pt;
+}
