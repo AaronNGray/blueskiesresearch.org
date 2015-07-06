@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en" data-framework="marionettejs">
+<head>
+	<meta charset="utf-8">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.marionette/2.4.2/backbone.marionette.min.js"></script>
+
+    <script src="App.js"></script>
+    <script src="js/PieChart.js"></script>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+	<section id="app">
+		<div id="main">
+		    <div id="chart-2" class="chart-2">
+		    </div>
+		    <div id="chart-3" class="chart-3">
+		    </div>
+		    <div id="chart-4" class="chart-4">
+		    </div>
+		</div>
+	</section>
+
+	<script type="text/html" id="pie-chart-2-template">
+	    <svg width="200" height="200" viewBox="0 0 400 400" class="pie-chart">
+    	    <defs>
+    	    <filter id="dropshadow" width="120%" height="120%">
+    	    <feGaussianBlur stdDeviation="4"/>
+    	    </filter>
+    	    </defs>
+    	    <path id="yes" />
+	    	<path id="no" />
+	    </svg>
+	</script>
+
+	<script type="text/html" id="pie-chart-3-template">
+	    <svg width="200" height="200" viewBox="0 0 400 400" class="pie-chart">
+    	    <defs>
+    	    <filter id="dropshadow" width="120%" height="120%">
+    	    <feGaussianBlur stdDeviation="4"/>
+    	    </filter>
+    	    </defs>
+    	    <path id="yes" />
+	    	<path id="no" />
+    		<path id="abstain" />
+   		</svg>
+	</script>
+
+	<script type="text/html" id="pie-chart-4-template">
+	    <svg width="200" height="200" viewBox="0 0 400 400" class="pie-chart">
+    	    <defs>
+    	    <filter id="dropshadow" width="120%" height="120%">
+    	    <feGaussianBlur stdDeviation="4"/>
+    	    </filter>
+    	    </defs>
+    	    <path id="yes" />
+	    	<path id="no" />
+	    	<path id="abstain" />
+	    	<path id="nonvote" />
+	    </svg>
+	</script>
+
+    <script>
+    	$(function () {
+    		App.start();
+    	});
+    </script>
+</body>
+</html>
