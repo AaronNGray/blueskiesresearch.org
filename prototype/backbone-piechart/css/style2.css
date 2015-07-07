@@ -1,0 +1,57 @@
+#app {
+    position: relative;
+    width: 100%;
+}
+#main {
+    position: absolute;
+    x: 200px;
+    y: 200px;
+    // border: black 1px outset;
+    // border-radius: 5px;
+}
+.chart-2 {
+    float: left;
+    width: 200px;
+    height: 200px;
+    // border: black 1px solid;
+    // border-radius: 5px;
+}
+.chart-3 {
+    float: left;
+    width: 200px;
+    height: 200px;
+    // border: black 1px solid;
+    // border-radius: 5px;
+}
+.chart-4 {
+    float: left;
+    width: 200px;
+    height: 200px;
+    // border: black 1px solid;
+    // border-radius: 5px;
+}
+
+.pie-chart #yes {
+    fill: #9A1B1E;
+    /* stroke: #333333; */
+    stroke-width: 1;
+    border: black 1px solid;
+}
+.pie-chart #no {
+    fill: #108040;
+    /* stroke: #333333; */
+    stroke-width: 1;
+    border: black 1px solid;
+}
+.pie-chart #abstain {
+    fill: #390F39;
+    /* stroke: #333333; */
+    stroke-width: 1;
+    border: black 1px solid;
+}
+.pie-chart #nonvote {
+    fill: #B24926;
+    stroke-width: 1;
+    /* stroke: #333333; */
+    border: black 1px solid;
+}
