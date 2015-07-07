@@ -1,0 +1,47 @@
+#app {
+    position: relative;
+    width: 100%;
+}
+#main {
+    position: absolute;
+    x: 200px;
+    y: 200px;
+    border: black 1px outset;
+}
+.chart-2 {
+    float: left;
+    width: 200px;
+    height: 200px;
+    //border: gray 1px solid;
+}
+.chart-3 {
+    float: left;
+    width: 200px;
+    height: 200px;
+}
+.chart-4 {
+    float: left;
+    width: 200px;
+    height: 200px;
+}
+
+.pie-chart #yes {
+    fill: #00FF00;
+    //stroke: black;
+    //stroke-width: 1;
+}
+.pie-chart #no {
+    fill: #FF0000;
+    //stroke: black;
+    //stroke-width: 2;
+}
+.pie-chart #abstain {
+    fill: black;
+    //stroke: black;
+    //stroke-width: 2;
+}
+.pie-chart #nonvote {
+    fill: #c0c0c0;
+    //stroke: black;
+    //stroke-width: 2;
+}
