@@ -14,11 +14,14 @@ App.module('PieChart', function (PieChart, App, Backbone) {
 
     function rad(d) { return d * Math.PI / 180; }
 
-    function sector(cx, cy, r, startAngle, endAngle) {
-        var x1 = cx + r * Math.sin(rad(startAngle)),
-            x2 = cx + r * Math.sin(rad(endAngle)),
-            y1 = cy + r * Math.cos(rad(startAngle)),
-            y2 = cy + r * Math.cos(rad(endAngle));
+    function round(v) { return Math.round(v * 1000) / 1000; }
+
+    function sector(cx, cy, r, axisAngle, startAngle, endAngle) {
+        var endAngle = endAngle - 0.01;
+        var x1 = round(cx + r * Math.sin(rad(axisAngle + startAngle))),
+            x2 = round(cx + r * Math.sin(rad(axisAngle + endAngle))),
+            y1 = round(cy + r * Math.cos(rad(axisAngle + startAngle))),
+            y2 = round(cy + r * Math.cos(rad(axisAngle + endAngle)));
         return "M" + cx + "," + cy + "L" + x1 + "," + y1 + " A" + r + "," + r + " 0 " + +(endAngle - startAngle > 180) + "," + "0 " + x2 + "," + y2 + " z";
     }
 
@@ -27,7 +30,7 @@ App.module('PieChart', function (PieChart, App, Backbone) {
         initialize: function() {
             this.center = 200;
             this.radius = 180;
-            this.startAngle = 180;
+            this.startAxis = 180;
 
             this.total = this.model.yes + this.model.no;
             this.yesRatio = this.model.yes / this.total;
@@ -36,15 +39,15 @@ App.module('PieChart', function (PieChart, App, Backbone) {
             this.yesAngle = 360 * this.yesRatio;
             this.noAngle = 360 * this.noRatio;
 
-            this.yesStart = this.startAngle;
+            this.yesStart = 0;
             this.yesEnd = this.yesStart + this.yesAngle;
             this.noStart = this.yesEnd;
             this.noEnd = this.noStart + this.noAngle;
         },
 
         onShow: function() {
-            this.$el.find("#yes").attr("d", sector(this.center, this.center, this.radius, this.yesStart, this.yesEnd));
-            this.$el.find("#no").attr("d", sector(this.center, this.center, this.radius, this.noStart, this.noEnd));
+            this.$el.find("#yes").attr("d", sector(this.center, this.center, this.radius, this.startAxis, this.yesStart, this.yesEnd));
+            this.$el.find("#no").attr("d", sector(this.center, this.center, this.radius, this.startAxis, this.noStart, this.noEnd));
         }
     });
     PieChart.PieChart3View = Marionette.ItemView.extend({
@@ -52,7 +55,7 @@ App.module('PieChart', function (PieChart, App, Backbone) {
         initialize: function() {
             this.center = 200;
             this.radius = 180;
-            this.startAngle = 180;
+            this.startAxis = 180;
 
             this.total = this.model.yes + this.model.no + this.model.abstain;
             this.yesRatio = this.model.yes / this.total;
@@ -63,7 +66,7 @@ App.module('PieChart', function (PieChart, App, Backbone) {
             this.noAngle = 360 * this.noRatio;
             this.abstainAngle = 360 * this.abstainRatio;
 
-            this.yesStart = this.startAngle;
+            this.yesStart = 0;
             this.yesEnd = this.yesStart + this.yesAngle;
             this.abstainStart = this.yesEnd;
             this.abstainEnd = this.abstainStart + this.abstainAngle;
@@ -72,9 +75,9 @@ App.module('PieChart', function (PieChart, App, Backbone) {
         },
 
         onShow: function() {
-            this.$el.find("#yes").attr("d", sector(this.center, this.center, this.radius, this.yesStart, this.yesEnd));
-            this.$el.find("#no").attr("d", sector(this.center, this.center, this.radius, this.noStart, this.noEnd));
-            this.$el.find("#abstain").attr("d", sector(this.center, this.center, this.radius, this.abstainStart, this.abstainEnd));
+            this.$el.find("#yes").attr("d", sector(this.center, this.center, this.radius, this.startAxis, this.yesStart, this.yesEnd));
+            this.$el.find("#no").attr("d", sector(this.center, this.center, this.radius, this.startAxis, this.noStart, this.noEnd));
+            this.$el.find("#abstain").attr("d", sector(this.center, this.center, this.radius, this.startAxis, this.abstainStart, this.abstainEnd));
         }
 
     });
@@ -83,7 +86,7 @@ App.module('PieChart', function (PieChart, App, Backbone) {
         initialize: function() {
             this.center = 200;
             this.radius = 180;
-            this.startAngle = 180;
+            this.startAxis = 180;
 
             this.total = this.model.members;
             this.yesRatio = this.model.yes / this.total;
@@ -96,7 +99,7 @@ App.module('PieChart', function (PieChart, App, Backbone) {
             this.abstainAngle = 360 * this.abstainRatio;
             this.nonvoteAngle = 360 * this.nonvoteRatio;
 
-            this.yesStart = this.startAngle;
+            this.yesStart = 0;
             this.yesEnd = this.yesStart + this.yesAngle;
             this.abstainStart = this.yesEnd;
             this.abstainEnd = this.abstainStart + this.abstainAngle;
@@ -107,10 +110,10 @@ App.module('PieChart', function (PieChart, App, Backbone) {
         },
 
         onShow: function() {
-            this.$el.find("#yes").attr("d", sector(this.center, this.center, this.radius, this.yesStart, this.yesEnd));
-            this.$el.find("#no").attr("d", sector(this.center, this.center, this.radius, this.noStart, this.noEnd));
-            this.$el.find("#abstain").attr("d", sector(this.center, this.center, this.radius, this.abstainStart, this.abstainEnd));
-            this.$el.find("#nonvote").attr("d", sector(this.center, this.center, this.radius, this.nonvoteStart, this.nonvoteEnd));
+            this.$el.find("#yes").attr("d", sector(this.center, this.center, this.radius, this.startAxis, this.yesStart, this.yesEnd));
+            this.$el.find("#no").attr("d", sector(this.center, this.center, this.radius, this.startAxis, this.noStart, this.noEnd));
+            this.$el.find("#abstain").attr("d", sector(this.center, this.center, this.radius, this.startAxis, this.abstainStart, this.abstainEnd));
+            this.$el.find("#nonvote").attr("d", sector(this.center, this.center, this.radius, this.startAxis, this.nonvoteStart, this.nonvoteEnd));
         }
     });
 
