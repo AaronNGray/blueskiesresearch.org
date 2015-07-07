@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Voting System</title>
+  <link rel="stylesheet" media="all" href="css/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="PieChartControl.js"></script>
+  <script>
+    var tally = {
+      "Yes": 0,
+      "No": 0,
+      "Abstain": 0
+    };
+    var members = 8;
+    var voteFinished = false;
+
+    var chart = new PieChartControl({
+        yes: tally["Yes"],
+        no: tally["No"],
+        abstain: tally["Abstain"],
+        members: members
+    });
+
+    var colors = {
+        "Yes": "green",
+        "No": "red",
+        "Abstain": "gray"
+    };
+
+    var vote = "None";
+    var VOTE = {
+        Yes: "YES",
+        No: "NO",
+        Abstain: "ABSTAIN",
+        None: "NONE"
+    };
+
+    function Choose(v) {
+        vote = v;
+        $("#value").html(VOTE[vote]);
+        $("#Vote").removeClass("disabled");
+
+        if (!voteFinished) {
+            ++tally[vote];
+            console.log("tally[" + vote + "] = ", tally[vote]);
+            $("#Tallys #" + vote).html(tally[vote]);
+            chart.setModel({
+                yes: tally["Yes"],
+                no: tally["No"],
+                abstain: tally["Abstain"],
+                members: members
+            });
+            chart.drawPieCharts();
+        }
+
+        var total = tally["Yes"] + tally["No"] + tally["Abstain"];
+
+        if (total == members)
+            voteFinished = true;
+
+        if (voteFinished) {
+            $("#value").html("Vote Finished");
+            $("#Vote").css("background-color", "silver");
+        }
+
+    }
+    function Vote() {
+        if (!voteFinished) {
+            $("#Vote").css("background-color", colors[vote]);
+            $("#Vote").html(vote);
+        }
+    }
+
+    chart.drawPieCharts();
+
+  </script>
+</head>
+<body>
+
+  <div id="container">
+
+    <div class="this.center">
+
+		<div id="charts">
+		    <div id="chart-2" class="chart-2">
+        	    <svg width="200" height="200" viewBox="0 0 400 400" class="pie-chart">
+            	    <defs>
+            	    <filter id="dropshadow" width="120%" height="120%">
+            	    <feGaussianBlur stdDeviation="4"/>
+            	    </filter>
+            	    </defs>
+            	    <path id="yes" />
+        	    	<path id="no" />
+        	    </svg>
+		    </div>
+		    <div id="chart-3" class="chart-3">
+        	    <svg width="200" height="200" viewBox="0 0 400 400" class="pie-chart">
+            	    <defs>
+            	    <filter id="dropshadow" width="120%" height="120%">
+            	    <feGaussianBlur stdDeviation="4"/>
+            	    </filter>
+            	    </defs>
+            	    <path id="yes" />
+        	    	<path id="no" />
+            		<path id="abstain" />
+           		</svg>
+		    </div>
+		    <div id="chart-4" class="chart-4">
+        	    <svg width="200" height="200" viewBox="0 0 400 400" class="pie-chart">
+            	    <defs>
+            	    <filter id="dropshadow" width="120%" height="120%">
+            	    <feGaussianBlur stdDeviation="4"/>
+            	    </filter>
+            	    </defs>
+            	    <path id="yes" />
+        	    	<path id="no" />
+        	    	<path id="abstain" />
+        	    	<path id="nonvote" />
+        	    </svg>
+		    </div>
+		</div>
+
+        <button id="Yes" onclick="Choose('Yes')">Yes</button>
+        <button id="No" onclick="Choose('No')">No</button>
+        <button id="Abstain" onclick="Choose('Abstain')">Abstain</button>
+
+        <div id="Tallys">
+            <div id="Yes">0</div>
+            <div id="No">0</div>
+            <div id="Abstain">0</div>
+        </div>
+
+        <div id="value"></div>
+
+        <button id="Vote" class="disabled" onclick="Vote()">Vote</button>
+
+    </div>
+
+  </div>
+
+<script>
+    $("#value").html(VOTE[vote]);
+
+</script>
+
+</body>
+</html>
